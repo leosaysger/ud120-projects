@@ -28,15 +28,24 @@ plt.show()
 ################################################################################
 
 
-### your code here!  name your classifier object clf if you want the 
+### your code here!  name your classifier object clf if you want the
 ### visualization code (prettyPicture) to show you the decision boundary
 
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
 
 
-
-
-
-
+clf = AdaBoostClassifier(n_estimators=50)
+clf_forest = RandomForestClassifier(min_samples_split=50)
+svm = SVC(kernel='rbf')
+algos = [clf, clf_forest, svm]
+for algo in algos:
+    algo.fit(features_train, labels_train)
+    pred = algo.predict(features_test)
+    print "this is the accuracy score for", algo
+    print accuracy_score(pred, labels_test)
 
 try:
     prettyPicture(clf, features_test, labels_test)
